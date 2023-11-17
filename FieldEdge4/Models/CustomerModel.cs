@@ -60,7 +60,7 @@ public class CustomerCompleteModel1
         public string lastname_country_rank { get; set; }
         public string lastname_country_frequency { get; set; }
         public string email { get; set; }
-        public string password { get; set; }
+        // public string password { get; set; }
         public string country_code { get; set; }
         public string country_code_alpha { get; set; }
         public string country_name { get; set; }

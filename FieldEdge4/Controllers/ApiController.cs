@@ -1,5 +1,6 @@
 using FieldEdge4.Models;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -34,7 +35,7 @@ public class ApiController : ControllerBase
         Console.WriteLine("Inside Get");
         var getCustomerData =  _httpClientFactory.CreateClient();
         var data = await getCustomerData.GetStringAsync(_connectionStringsOption.ApiUrl+Request.Path.Value);
-        Console.WriteLine("RRRRRRRRESSSSUKKKKTT"+data);
+        // Console.WriteLine("RRRRRRRRESSSSUKKKKTT"+data);
         // var objData = JsonSerializer.Deserialize<CustomerCompleteModel>(data);
         var arrayOfObjects = JsonSerializer.Deserialize<object[]>(data);
 
@@ -125,7 +126,7 @@ public class ApiController : ControllerBase
 
     [HttpPost]
     [Route("customer")]
-    public async Task<ActionResult<int>> PostToCustomer([FromBody] CustomerCompleteModel model)
+    public async Task<ActionResult<int>> PostToCustomer([FromBody] CustomerMandatoryModel model)
     {
 
    
@@ -137,7 +138,7 @@ public class ApiController : ControllerBase
         HttpContent content = new StringContent(JsonSerializer.Serialize(model));
         // HttpContent content = new StringContent(model);
         var data = await postCustomerData.PostAsync(_connectionStringsOption.ApiUrl+Request.Path.Value,content);
-        Console.WriteLine("RRRRRRRRESSSSUKKKKTT"+data);
+        // Console.WriteLine("RRRRRRRRESSSSUKKKKTT"+data);
         // var objData = JsonSerializer.Deserialize<CustomerCompleteModel>(data);
         // var arrayOfObjects = JsonSerializer.Deserialize<object[]>(data);
 

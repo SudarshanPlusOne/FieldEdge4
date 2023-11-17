@@ -4,17 +4,26 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpClient();
-builder.Services.AddMvc();
 builder.Services.Configure<ConnectionStringsOption>(
     builder.Configuration.GetSection("ConnectionStrings")
 );
-
+builder.Services.AddCors((options)=>{
+    options.AddPolicy("AllowOrigin", builder =>
+            {
+               builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+            });
+});
+builder.Services.AddMvc();
+builder.Services.AddHttpClient();
 
 
 var app = builder.Build();
+app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 app.MapControllerRoute(name:"default",pattern:"{controller}/{action=Index}/{id?}");
-Console.WriteLine("Inside program.cs");
+// Console.WriteLine("Inside program.cs");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -22,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 // app.UseStaticFiles();
