@@ -164,7 +164,7 @@ public class ApiController : ControllerBase
         var deleteCustomerData =  _httpClientFactory.CreateClient();
         Console.WriteLine(_connectionStringsOption.ApiUrl+Request.Path.Value);
         var data = await deleteCustomerData.DeleteAsync(_connectionStringsOption.ApiUrl+Request.Path.Value);
-        Console.WriteLine("RRRRRRRRESSSSUKKKKTT"+data);
+        // Console.WriteLine("RRRRRRRRESSSSUKKKKTT"+data);
 
         // Print the result
         
